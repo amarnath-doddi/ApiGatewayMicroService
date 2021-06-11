@@ -1,0 +1,27 @@
+server:
+  port: 9009
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+        prefer-ip-address: true
+
+spring:
+  application:
+    name: GATEWAY-SERVICE   
+  cloud:
+    gateway:
+      routes:
+      - id: UserManagement 
+        uri: lb://User-Management
+        predicates:
+        - Path=/users/**
+      - id: FundManagement
+        #uri: http://localhost:9010/welcome/
+        uri: lb://Fund-Management
+        predicates:
+        - Path=/fund/**
+          
+        
+          
